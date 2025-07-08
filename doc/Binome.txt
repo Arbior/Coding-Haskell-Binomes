@@ -1,0 +1,31 @@
+Can I say that it works this way:
+When have a main function (let's say F)
+And the function arguments is a list of elements (let's say L ={ A,B,C,D}).
+F will return a list of pairs.
+
+Step 0: If L is empty, return.
+Step 1: Split the list L this way:
+		L1 = {the 1rst elment} (L1 = A)
+		Lr = {the rest} (Lr={B,C,D})
+Step 2: Do the following r times - r is the number of elements in Lr. (r=3)
+Time 21: (r=1)
+	Step 21.1: Split the list Lr this way:
+			   Li = {the ith element} (Li=B)
+			   Lri = {the rest} (Lri={C,D})
+	Step 21.1: Create a pair-result Ri with L1 and Li. (Ri=(A,B))
+	Step 21.2: Call F on Lri (F{C,D}). This will return a list of pair-results Rri. (Rri={(C,D)})
+	Step 21.3: Accumulate the results Ri & Rri ({(A,B);(C,D)})
+Time 22: (r=2)
+	Step 22.1: Split the list Lr this way:
+			   Li = {the ith element} (Li=C)
+			   Lri = {the rest} (Lri={B,D})
+	Step 22.1: Create a pair-result Ri with L1 and Li. (Ri=(A,C))
+	Step 22.2: Call F on Lri (F{B,D}). This will return a list of pair-results Rri. (Rri={(B,D)})
+	Step 22.3: Accumulate the results Ri & Rri ({(A,C);(B,D)})
+Time 23: (r=3)
+	Step 23.1: Split the list Lr this way:
+			   Li = {the ith element} (Li=D)
+			   Lri = {the rest} (Lri={B,C})
+	Step 23.1: Create a pair-result Ri with L1 and Li. (Ri=(A,D))
+	Step 23.2: Call F on Lri (F{B,C}). This will return a list of pair-results Rri. (Rri={(B,C)})
+	Step 23.3: Accumulate the results Ri & Rri ({(A,D);(B,C)})

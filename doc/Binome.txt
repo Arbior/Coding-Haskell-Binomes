@@ -4,6 +4,7 @@ And the function arguments is a list of elements (let's say L ={ A,B,C,D}).
 F will return a list of pairs.
 
 Step 0: If L is empty, return.
+Step 0: If L has only 1 element => error
 Step 1: Split the list L this way:
 		L1 = {the 1rst elment} (L1 = A)
 		Lr = {the rest} (Lr={B,C,D})

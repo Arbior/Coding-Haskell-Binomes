@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pairing Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .input-section {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            box-sizing: border-box;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .results {
+            margin-top: 30px;
+        }
+        
+        .pairing {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .pairing-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffeb3b;
+        }
+        
+        .binome {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .stats {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #ffeb3b;
+        }
+        
+        .note {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .manual-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .manual-instructions h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+        }
+        
+        .manual-instructions p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤝 Pairing Generator</h1>
+        
+        <div class="input-section">
+            <label for="elements">Enter elements separated by spaces:</label>
+            <input type="text" id="elements" placeholder="Alice Bob Charlie David Eve Frank" />
+            <button id="generateBtn">Generate All Pairings</button>
+        </div>
+        
+        <div id="results" class="results">
+            <div class="note">
+                <strong>JavaScript Status Check:</strong><br>
+                <span id="js-status">JavaScript appears to be disabled or blocked on this device.</span>
+            </div>
+            <div class="note">
+                <strong>Detailed Debug Info:</strong><br>
+                <div id="debug-info">Loading debug information...</div>
+            </div>
+        </div>
+        
+        <div class="manual-instructions">
+            <h3>📱 iPhone Users - Manual Instructions:</h3>
+            <p><strong>If the button above doesn't work, JavaScript might be disabled. Here's how to enable it:</strong></p>
+            <p>1. Go to <strong>Settings</strong> → <strong>Safari</strong> → <strong>Advanced</strong></p>
+            <p>2. Turn on <strong>JavaScript</strong></p>
+            <p>3. Reload this page</p>
+            
+            <h3>🔧 Alternative Solutions:</h3>
+            <p><strong>Option 1:</strong> Try opening this page in Chrome or Firefox instead of Safari</p>
+            <p><strong>Option 2:</strong> Try accessing this page from a computer or different device</p>
+            
+            <h3>📝 Manual Pairing Process:</h3>
+            <p>For a small number of people, you can create pairings manually:</p>
+            <p><strong>Example with 4 people (A, B, C, D):</strong></p>
+            <p>• Pairing 1: A↔B, C↔D</p>
+            <p>• Pairing 2: A↔C, B↔D</p>
+            <p>• Pairing 3: A↔D, B↔C</p>
+            <p>This gives you all 3 possible ways to pair 4 people!</p>
+        </div>
+    </div>
+
+    <script>
+        // Immediate execution test
+        try {
+            var debugInfo = [];
+            debugInfo.push("Script tag executed: YES");
+            debugInfo.push("Date: " + new Date().toString());
+            debugInfo.push("User Agent: " + navigator.userAgent);
+            debugInfo.push("JavaScript enabled: YES");
+            
+            // Test DOM access
+            var statusElement = document.getElementById('js-status');
+            if (statusElement) {
+                statusElement.textContent = 'JavaScript is working! The button should work now.';
+                debugInfo.push("DOM access: SUCCESS");
+            } else {
+                debugInfo.push("DOM access: FAILED - js-status element not found");
+            }
+            
+            var debugElement = document.getElementById('debug-info');
+            if (debugElement) {
+                debugElement.innerHTML = debugInfo.join('<br>');
+                debugInfo.push("Debug element access: SUCCESS");
+            } else {
+                debugInfo.push("Debug element access: FAILED");
+            }
+            
+            var resultsDiv = document.getElementById('results');
+            if (resultsDiv) {
+                resultsDiv.innerHTML = '<div class="note">JavaScript is enabled and working! Ready to generate pairings.</div>';
+                debugInfo.push("Results div access: SUCCESS");
+            } else {
+                debugInfo.push("Results div access: FAILED");
+            }
+            
+        } catch (e) {
+            // If we can't even access DOM elements, try to show error somehow
+            document.write('<div style="color: red; background: white; padding: 10px;">JavaScript Error: ' + e.message + '</div>');
+        }
+
+        function splitElementsAt(elements, index) {
+            if (index < 0 || index >= elements.length) {
+                throw new Error('Cannot split at index ' + index + '!');
+            }
+            var element = elements[index];
+            var remaining = [];
+            for (var i = 0; i < elements.length; i++) {
+                if (i !== index) {
+                    remaining.push(elements[i]);
+                }
+            }
+            return [element, remaining];
+        }
+
+        function binomes(elements) {
+            if (elements.length === 0) {
+                return [[]];
+            }
+            
+            if (elements.length === 1) {
+                throw new Error('Cannot make binome out of a single element list! ' + elements[0]);
+            }
+            
+            var first = elements[0];
+            var rest = elements.slice(1);
+            var results = [];
+            
+            for (var i = 0; i < rest.length; i++) {
+                var splitResult = splitElementsAt(rest, i);
+                var li = splitResult[0];
+                var remaining = splitResult[1];
+                var pair = [first, li];
+                var subResults = binomes(remaining);
+                
+                for (var j = 0; j < subResults.length; j++) {
+                    var newResult = [pair];
+                    for (var k = 0; k < subResults[j].length; k++) {
+                        newResult.push(subResults[j][k]);
+                    }
+                    results.push(newResult);
+                }
+            }
+            
+            return results;
+        }
+
+        function generatePairings() {
+            try {
+                var input = document.getElementById('elements').value.trim();
+                var resultsDiv = document.getElementById('results');
+                
+                if (!input) {
+                    resultsDiv.innerHTML = '<div class="note">Please enter some elements!</div>';
+                    return;
+                }
+                
+                var elements = input.split(/\s+/).filter(function(el) { return el.length > 0; });
+                var addedPerson = false;
+                
+                if (elements.length % 2 === 1) {
+                    elements.push('Personne');
+                    addedPerson = true;
+                }
+                
+                var pairings = binomes(elements);
+                
+                var html = '<h3>All possible pairings:</h3>';
+                
+                for (var i = 0; i < pairings.length; i++) {
+                    var pairing = pairings[i];
+                    html += '<div class="pairing">';
+                    html += '<div class="pairing-title">Pairing ' + (i + 1) + ':</div>';
+                    
+                    for (var j = 0; j < pairing.length; j++) {
+                        var binome = pairing[j];
+                        html += '<span class="binome">' + binome[0] + ' ↔ ' + binome[1] + '</span>';
+                    }
+                    
+                    html += '</div>';
+                }
+                
+                html += '<div class="stats">Total number of pairings: ' + pairings.length + '</div>';
+                
+                if (addedPerson) {
+                    html += '<div class="note">(Note: Added "Personne" to make an even number of elements)</div>';
+                }
+                
+                resultsDiv.innerHTML = html;
+                
+            } catch (error) {
+                document.getElementById('results').innerHTML = '<div class="note">Error: ' + error.message + '</div>';
+            }
+        }
+
+        // Set up event listeners with multiple approaches
+        function setupEventListeners() {
+            try {
+                var button = document.getElementById('generateBtn');
+                var input = document.getElementById('elements');
+                
+                if (button && input) {
+                    // Method 1: addEventListener
+                    button.addEventListener('click', generatePairings);
+                    
+                    // Method 2: onclick property
+                    button.onclick = generatePairings;
+                    
+                    // Method 3: Touch events
+                    button.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        generatePairings();
+                    });
+                    
+                    button.addEventListener('touchend', function(e) {
+                        e.preventDefault();
+                        generatePairings();
+                    });
+                    
+                    // Enter key support
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter' || e.keyCode === 13) {
+                            generatePairings();
+                        }
+                    });
+                    
+                    document.getElementById('results').innerHTML = '<div class="note">JavaScript is working and event listeners are set up! Try the button now.</div>';
+                } else {
+                    document.getElementById('results').innerHTML = '<div class="note">ERROR: Could not find button or input elements</div>';
+                }
+            } catch (e) {
+                document.getElementById('results').innerHTML = '<div class="note">ERROR setting up event listeners: ' + e.message + '</div>';
+            }
+        }
+        
+        // Try to set up event listeners immediately
+        setupEventListeners();
+        
+        // Also try after DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupEventListeners);
+        }
+        
+        // And as a final fallback
+        setTimeout(setupEventListeners, 1000);
+    </script>
+</body>
+</html>
